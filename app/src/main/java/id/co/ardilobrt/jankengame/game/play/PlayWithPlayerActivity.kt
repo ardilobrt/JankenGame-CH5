@@ -66,7 +66,7 @@ class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialo
     }
 
     private fun setPlayer1(view: ImageView, idView: Int) {
-        setSelectedHand(view, true)
+        setHandBackground(view, true)
         setHandPlayer1Enabled(false)
 
         player1.handId = idView
@@ -83,7 +83,7 @@ class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialo
         }, 1000)
     }
 
-    private fun setSelectedHand(view: ImageView, selected: Boolean) {
+    private fun setHandBackground(view: ImageView, selected: Boolean) {
         if (selected) {
             view.setBackgroundResource(R.drawable.ic_hand_background)
         } else view.setBackgroundResource(0)
@@ -118,7 +118,7 @@ class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialo
     }
 
     private fun setPlayer2(view: ImageView, idView: Int) {
-        setSelectedHand(view, true)
+        setHandBackground(view, true)
         setHandPlayer2Enabled(false)
 
         player2.handId = idView
@@ -165,16 +165,16 @@ class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialo
 
     private fun clearViewPlayer1() {
         setHandPlayer1Enabled(true)
-        setSelectedHand(binding.ivRockP1, false)
-        setSelectedHand(binding.ivPaperP1, false)
-        setSelectedHand(binding.ivScissorP1, false)
+        setHandBackground(binding.ivRockP1, false)
+        setHandBackground(binding.ivPaperP1, false)
+        setHandBackground(binding.ivScissorP1, false)
     }
 
     private fun clearViewPlayer2() {
         setHandPlayer2Enabled(false)
-        setSelectedHand(binding.ivRockP2, false)
-        setSelectedHand(binding.ivPaperP2, false)
-        setSelectedHand(binding.ivScissorP2, false)
+        setHandBackground(binding.ivRockP2, false)
+        setHandBackground(binding.ivPaperP2, false)
+        setHandBackground(binding.ivScissorP2, false)
     }
 
     // Step 4 Send data from fragment to activity -> override function from fragment
