@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".menu.MenuActivity">
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/text_menu"
+        android:text="@string/choose_your_opponent"
+        app:layout_constraintBottom_toTopOf="@+id/linear_vs_player"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_player"
+        style="@style/menu_image_size"
+        android:src="@drawable/ic_onboarding_2"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_vs_player"
+        style="@style/text_menu"
+        android:text="@string/menu_vs_player"/>
+
+    <ImageView
+        android:id="@+id/iv_cpu"
+        style="@style/menu_image_size"
+        android:src="@drawable/ic_onboarding_3"
+        tools:ignore="ContentDescription,ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/tv_vs_cpu"
+        style="@style/text_menu"
+        android:text="@string/menu_vs_cpu" />
+
+</LinearLayout>

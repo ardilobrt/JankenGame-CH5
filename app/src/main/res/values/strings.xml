@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Janken</string>
+    <string name="content_desc">Desc</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="title_janken_game">Janken Game</string>
+    <string name="title_vs_player">Player VS Player</string>
+    <string name="title_vs_cpu">Player VS CPU</string>
+    <string name="desc_janken_game">Play rock paper scissor game on your mobile phone</string>
+    <string name="desc_vs_other">Play janken game against your friends</string>
+    <string name="desc_vs_cpu">Play janken game against computer</string>
+    <string name="input_your_name">Input Your Name</string>
+    <string name="input_error">Field Cannot Empty</string>
+    <string name="next">Next</string>
+    <string name="finish">Finish</string>
+    <string name="choose_your_opponent">CHOOSE YOUR OPPONENT</string>
+    <string name="menu_vs_player">%1$s VS Player</string>
+    <string name="menu_vs_cpu">%1$s VS CPU</string>
+    <string name="pick_hand">%1$s, PICK YOUR HAND</string>
+    <string name="wait">WAIT A SECOND…</string>
+    <string name="title_result">Game Result</string>
+    <string name="result_win">%1$s WIN!</string>
+    <string name="result_draw">DRAW!</string>
+    <string name="refresh_game">REFRESH GAME TO PLAY AGAIN</string>
+    <string name="play_again">PLAY AGAIN</string>
+    <string name="back_to_menu">BACK TO MENU</string>
+</resources>

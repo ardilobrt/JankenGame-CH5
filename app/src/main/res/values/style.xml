@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash Screen Theme (pre Android 12) -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/brown_light</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.JankenGame</item>
+    </style>
+
+    <!-- My Style -->
+    <style name="linear_size" parent="Theme.JankenGame">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="player_size" parent="Theme.JankenGame">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">33dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">24dp</item>
+    </style>
+
+    <style name="hand_size" parent="Theme.JankenGame">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+    </style>
+
+    <style name="onboarding_image_size" parent="Theme.JankenGame">
+        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_height">250dp</item>
+        <item name="android:layout_marginTop">150dp</item>
+    </style>
+
+    <style name="menu_image_size" parent="Theme.JankenGame">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="dialog_button" parent="Theme.JankenGame">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="fontFamily">@font/nunitoextrabold</item>
+        <item name="android:textColor">@color/egg_plant</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="text_janken" parent="Theme.JankenGame">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/nunitoextrabold</item>
+    </style>
+
+    <style name="title" parent="text_janken">
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/egg_plant</item>
+    </style>
+
+    <style name="description" parent="text_janken">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginStart">64dp</item>
+        <item name="android:layout_marginEnd">64dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/egg_plant_light</item>
+    </style>
+
+    <style name="text_menu" parent="text_janken">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/egg_plant</item>
+    </style>
+
+    <style name="info" parent="text_janken">
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/egg_plant</item>
+    </style>
+</resources>
