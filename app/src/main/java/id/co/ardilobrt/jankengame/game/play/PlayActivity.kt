@@ -13,16 +13,18 @@ import id.co.ardilobrt.jankengame.R
 import id.co.ardilobrt.jankengame.databinding.ActivityPlayBinding
 import id.co.ardilobrt.jankengame.game.controller.Controller
 import id.co.ardilobrt.jankengame.game.dialog.CustomDialogFragment
+import id.co.ardilobrt.jankengame.model.Constant
 import id.co.ardilobrt.jankengame.model.Player
 
 // Step 3 Send data from fragment to activity -> implement interface
-class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialogButtonListener {
+class PlayActivity : AppCompatActivity(), CustomDialogFragment.OnDialogButtonListener {
 
     private lateinit var binding: ActivityPlayBinding
     private lateinit var player1: Player
-    private lateinit var player2: Player
+    private lateinit var opponent: Player
     private val handler = Handler(Looper.getMainLooper())
     private var playerClick = 0
+    private var backClick = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +36,10 @@ class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialo
             .load("https://i.ibb.co/wYXbtX1/image-head-layout.png")
             .into(binding.ivHead)
 
-        player1 = intent.getParcelableExtra<Player>("EXTRA_PLAYER") as Player
-        logD(getString(R.string.menu_vs_player, player1.name))
+        player1 = Constant.getParcelable(intent)
+        if (player1.opponent == 1) {
+            logD(getString(R.string.menu_vs_player, player1.name))
+        } else logD(getString(R.string.menu_vs_cpu, player1.name))
 
         showPlayer1()
 
@@ -73,14 +77,8 @@ class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialo
         logD(player1.showMessage())
         setToast(player1.showMessage())
 
-        // Make a waiting time until player 1 hide & player 2 can click hand after 1 seconds
         binding.tvMessage.text = getString(R.string.wait)
-        binding.ivRefresh.visibility = View.INVISIBLE
-        handler.postDelayed({
-            setPlayer1Hidden(true)
-            showPlayer2()
-            binding.ivRefresh.visibility = View.VISIBLE
-        }, 1000)
+        if (player1.opponent == 1) versusPlayer() else versusCPU()
     }
 
     private fun setHandBackground(view: ImageView, selected: Boolean) {
@@ -95,6 +93,18 @@ class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialo
         binding.ivScissorP1.isEnabled = enable
     }
 
+    private fun versusPlayer() {
+        // Make a waiting time until player 1 hide & player 2 can click hand after 1 seconds
+        binding.apply {
+            ivRefresh.visibility = View.INVISIBLE
+            handler.postDelayed({
+                setPlayer1Hidden(true)
+                showPlayer2()
+                ivRefresh.visibility = View.VISIBLE
+            }, 1000)
+        }
+    }
+
     private fun setPlayer1Hidden(hidden: Boolean) {
         if (hidden) {
             binding.layoutP1.setBackgroundResource(R.drawable.ic_hand_background)
@@ -103,8 +113,8 @@ class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialo
 
     private fun showPlayer2() {
         playerClick = 2
-        player2 = Player("Player 2")
-        binding.tvMessage.text = getString(R.string.pick_hand, player2.name.uppercase())
+        opponent = Player("Player 2")
+        binding.tvMessage.text = getString(R.string.pick_hand, opponent.name.uppercase())
         setHandPlayer2Enabled(true)
         setOnClickPlayer(binding.ivRockP2, 1)
         setOnClickPlayer(binding.ivPaperP2, 2)
@@ -121,25 +131,69 @@ class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialo
         setHandBackground(view, true)
         setHandPlayer2Enabled(false)
 
-        player2.handId = idView
-        logD(player2.showMessage())
-        setToast(player2.showMessage())
+        opponent.handId = idView
+        logD(opponent.showMessage())
+        setToast(opponent.showMessage())
 
         setPlayer1Hidden(false)
         startGame()
     }
 
+    private fun versusCPU() {
+        // Hold 2 seconds until animation finish
+        showAnimation()
+        binding.ivRefresh.visibility = View.INVISIBLE
+        handler.postDelayed({
+            if (backClick == 0) {
+                setCPU()
+                startGame()
+            }
+            binding.ivRefresh.visibility = View.VISIBLE
+        }, 2000)
+    }
+
+    // +1 untuk animasi cpu
+    private fun showAnimation() {
+        setHandBackground(binding.ivRockP2, true)
+        handler.postDelayed({
+            backgroundAnimation(binding.ivRockP2, binding.ivPaperP2)
+            handler.postDelayed({
+                backgroundAnimation(binding.ivPaperP2, binding.ivScissorP2)
+                handler.postDelayed({
+                    setHandBackground(binding.ivScissorP2, false)
+                }, 500)
+            }, 500)
+        }, 500)
+    }
+
+    private fun backgroundAnimation(view1: ImageView, view2: ImageView) {
+        setHandBackground(view1, false)
+        setHandBackground(view2, true)
+    }
+
+    private fun setCPU() {
+        opponent = Player("CPU")
+        opponent.handId = (1..3).random()
+        when (opponent.handId) {
+            1 -> setHandBackground(binding.ivRockP2, true)
+            2 -> setHandBackground(binding.ivPaperP2, true)
+            3 -> setHandBackground(binding.ivScissorP2, true)
+        }
+        logD(opponent.showMessage())
+        setToast(opponent.showMessage())
+    }
+
     private fun startGame() {
         // Make object from class Controller and call function ruleGame
         val controller = Controller()
-        val resultGame = controller.ruleGame(player1.handId, player2.handId)
-        logD("Start Game = ${player1.handName} VS ${player2.handName}")
+        val resultGame = controller.ruleGame(player1.handId, opponent.handId)
+        logD("Start Game = ${player1.handName} VS ${opponent.handName}")
 
         val player1Name = player1.name.uppercase()
-        val player2Name = player2.name.uppercase()
+        val player2Name = opponent.name.uppercase()
         when (resultGame) {
             player1.handId -> showDialogResult(getString(R.string.result_win, player1Name))
-            player2.handId -> showDialogResult(getString(R.string.result_win, player2Name))
+            opponent.handId -> showDialogResult(getString(R.string.result_win, player2Name))
             else -> showDialogResult(getString(R.string.result_draw))
         }
     }
@@ -187,6 +241,12 @@ class PlayWithPlayerActivity : AppCompatActivity(), CustomDialogFragment.OnDialo
     }
 
     private fun logD(message: String) {
-        Log.i(PlayWithPlayerActivity::class.java.simpleName, message)
+        Log.i(PlayActivity::class.java.simpleName, message)
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        backClick = 1
+    }
+
 }

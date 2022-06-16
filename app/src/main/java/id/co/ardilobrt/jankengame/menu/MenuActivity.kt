@@ -8,13 +8,14 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import id.co.ardilobrt.jankengame.R
 import id.co.ardilobrt.jankengame.databinding.ActivityMenuBinding
-import id.co.ardilobrt.jankengame.game.play.PlayWithCpuActivity
 import id.co.ardilobrt.jankengame.model.Player
-import id.co.ardilobrt.jankengame.game.play.PlayWithPlayerActivity
+import id.co.ardilobrt.jankengame.game.play.PlayActivity
+import id.co.ardilobrt.jankengame.model.Constant
 
 class MenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMenuBinding
     private lateinit var playerName: String
+    private lateinit var player: Player
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +23,8 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val player = intent.getParcelableExtra<Player>("EXTRA_PLAYER")
-        playerName = player?.name.toString()
+        player = Constant.getParcelable(intent)
+        playerName = player.name
 
         showSnackBar()
 
@@ -32,14 +33,12 @@ class MenuActivity : AppCompatActivity() {
 
         binding.ivPlayer.setOnClickListener {
             logD("$playerName choose Menu VS Player")
-            val intentVsPlayer = Intent(this, PlayWithPlayerActivity::class.java)
-            putIntent(intentVsPlayer, player)
+            putIntent(1)
         }
 
         binding.ivCpu.setOnClickListener {
             logD("$playerName choose Menu VS CPU")
-            val intentVsCPU = Intent(this, PlayWithCpuActivity::class.java)
-            putIntent(intentVsCPU, player)
+            putIntent(0)
         }
     }
 
@@ -53,8 +52,10 @@ class MenuActivity : AppCompatActivity() {
         snackBar.show()
     }
 
-    private fun putIntent(intent: Intent, player: Player?) {
-        intent.putExtra("EXTRA_PLAYER", player)
+    private fun putIntent(opponent: Int) {
+        val intent = Intent(this, PlayActivity::class.java)
+        player = Player(playerName, opponent)
+        intent.putExtra(Constant.EXTRA_PLAYER, player)
         startActivity(intent)
     }
 

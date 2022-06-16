@@ -6,7 +6,7 @@ import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Player(val name: String) : Parcelable {
+data class Player(val name: String, var opponent: Int = 0) : Parcelable {
 
     @IgnoredOnParcel
     var handId: Int = 0

@@ -16,10 +16,7 @@
         android:theme="@style/Theme.JankenGame"
         tools:targetApi="31">
         <activity
-            android:name=".game.play.PlayWithPlayerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".game.play.PlayWithCpuActivity"
+            android:name=".game.play.PlayActivity"
             android:exported="false" />
         <activity
             android:name=".menu.MenuActivity"
