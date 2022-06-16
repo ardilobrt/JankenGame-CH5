@@ -93,6 +93,7 @@ class PlayWithCpuActivity : AppCompatActivity(), CustomDialogFragment.OnDialogBu
         binding.ivScissorP1.isEnabled = enable
     }
 
+    // +1 untuk animasi cpu
     private fun showAnimation() {
         setHandBackground(binding.ivRockP2, true)
         handler.postDelayed({

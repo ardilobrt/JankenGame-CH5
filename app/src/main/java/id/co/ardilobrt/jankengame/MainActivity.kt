@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     var listener: OnSendDataToFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // +1 penggunaan splash tanpa activity
         // Make splash screen without layout & activity
         // https://developer.android.com/guide/topics/ui/splash-screen/migrate
         installSplashScreen()
@@ -82,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    // +1 penggunaan fragmentstagemanager
     private inner class ViewPagerAdapter(fm: FragmentManager, lf: Lifecycle) :
         FragmentStateAdapter(fm, lf) {
 

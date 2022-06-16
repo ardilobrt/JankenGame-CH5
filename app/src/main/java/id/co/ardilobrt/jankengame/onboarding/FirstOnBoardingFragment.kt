@@ -9,6 +9,7 @@ import id.co.ardilobrt.jankengame.R
 import id.co.ardilobrt.jankengame.databinding.FragmentScreenOnBoardingBinding
 
 class FirstOnBoardingFragment : Fragment() {
+    // +1 penggunaan binding, bisa menghemat waktu dan kodingan
     // https://developer.android.com/topic/libraries/view-binding/migration#kts
     private var _binding: FragmentScreenOnBoardingBinding? = null
     private val binding get() = _binding!!
