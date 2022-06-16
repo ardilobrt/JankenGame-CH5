@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import id.co.ardilobrt.jankengame.MainActivity
 import id.co.ardilobrt.jankengame.R
 import id.co.ardilobrt.jankengame.databinding.FragmentLoginOnBoardingBinding
+import id.co.ardilobrt.jankengame.model.Constant
 import id.co.ardilobrt.jankengame.model.Player
 
 // Step 3 Send data from activity to fragment -> implement interface
@@ -35,7 +36,8 @@ class LoginOnBoardingFragment : Fragment(), MainActivity.OnSendDataToFragment {
         if (userInput.isNotEmpty()) {
             logD("User = $userInput")
             val player = Player(userInput)
-            intent.putExtra("EXTRA_PLAYER", player)
+            // Make variable extra constant to avoid human error (typo)
+            intent.putExtra(Constant.EXTRA_PLAYER, player)
             startActivity(intent)
             (activity as MainActivity).finish()
         } else {
